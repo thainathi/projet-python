@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import requests
 
 # 1. URL de la page cible
-url = "https://www.17octobregiletjaune.net/carte/"
+url = "https://www.17octobregiletjaune.net/carte/17-octobre/"
 
 # 2. Ajouter des en-têtes (Headers) pour simuler un vrai navigateur 
 # (évite parfois d'être bloqué par une protection anti-bot basique)
@@ -50,3 +50,16 @@ try:
 
 except requests.exceptions.RequestException as e:
   print(f"Erreur lors de la requête HTTP : {e}")
+
+  # Rechercher toutes les balises <script> pour voir si les données y sont stockées
+scripts = soup.find_all("script")
+print(f"Nombre de balises script trouvées : {len(scripts)}")
+
+for i, script in enumerate(scripts):
+  if script.string and ("mobilisation" in script.string or "lat" in script.string):
+    print(
+        f"La balise script n°{i} contient potentiellement des données de"
+        " géolocalisation ou de mobilisations !"
+    )
+    # Vous pouvez afficher un extrait pour voir à quoi ça ressemble :
+    # print(script.string[:500])
