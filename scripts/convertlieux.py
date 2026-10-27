@@ -2,7 +2,7 @@ import csv
 import json
 
 nom_json = 'lieux.json'
-nom_csv = 'lieux_convertis.csv'
+nom_csv = 'lieux.csv'
 
 print(f"1. Tentative de lecture du fichier : {nom_json}")
 
